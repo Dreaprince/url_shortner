@@ -12,6 +12,7 @@ import { ShortenUrl } from './shorten-url/entities/shorten-url.entity';
 import { UserModule } from './user/user.module';
 import { ShortenUrlModule } from './shorten-url/shorten-url.module';
 import { AuditLog } from './audit-log/entities/audit-log.entity';
+import { AuditLogModule } from './audit-log/audit-log.module';
 
 
 dotenvConfig();
@@ -31,6 +32,7 @@ dotenvConfig();
   }),
   UserModule,
   ShortenUrlModule,
+  AuditLogModule,
   AuthModule
 ],
   controllers: [AppController],
