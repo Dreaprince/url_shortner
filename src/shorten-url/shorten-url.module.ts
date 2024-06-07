@@ -10,4 +10,4 @@ import { ShortenUrl } from './entities/shorten-url.entity';
   controllers: [ShortenUrlController],
   providers: [ShortenUrlService],
 })
-export class UserModule {}
+export class ShortenUrlModule {}

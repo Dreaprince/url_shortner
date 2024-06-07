@@ -3,7 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository, LessThan } from 'typeorm';
-import { generateId, hashPassword, makeid } from 'src/util/utility';
+import { generateId, hashPassword} from 'src/util/utility';
 import { sign } from 'jsonwebtoken';
 import { LoginDto } from './dto/login-user.dto';
 import * as bcrypt from 'bcrypt';
@@ -33,7 +33,12 @@ export class UserService {
   async signup(createUserDto: CreateUserDto) {
     try {
 
-      const { email, password } = createUserDto
+      const { email, password, confirmPassword } = createUserDto
+
+      // Validate input data
+      if (password !== confirmPassword) {
+        throw new ConflictException('Passwords do not match.');
+      }
 
       // Check if email already exists
       const existingEmail = await this.userRepository.findOneBy({ email });
@@ -77,7 +82,6 @@ export class UserService {
 
   async login(loginDto: LoginDto) {
     const { username, password } = loginDto;
-    let company: any;
 
     try {
       const user = await this.userRepository.findOneBy({ email: username });
@@ -106,15 +110,12 @@ export class UserService {
       await this.updateAccessToken(user.userId, accessToken);
 
       return {
-        // status: true,
-        // code: "00",
         statusCode: '00',
         message: "Login Successful",
         data: {
           userId: user.userId,
           email: user.email,
           token: accessToken,
-          passwordReset: user.passwordReset
         }
       };
     } catch (error) {
