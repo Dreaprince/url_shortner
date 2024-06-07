@@ -11,6 +11,7 @@ import { User } from './user/entities/user.entity';
 import { ShortenUrl } from './shorten-url/entities/shorten-url.entity';
 import { UserModule } from './user/user.module';
 import { ShortenUrlModule } from './shorten-url/shorten-url.module';
+import { AuditLog } from './audit-log/entities/audit-log.entity';
 
 
 dotenvConfig();
@@ -25,12 +26,12 @@ dotenvConfig();
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
-    entities: [User, ShortenUrl], 
+    entities: [User, ShortenUrl, AuditLog,], 
     synchronize: true
   }),
   UserModule,
   ShortenUrlModule,
-
+  AuthModule
 ],
   controllers: [AppController],
   providers: [AppService],
