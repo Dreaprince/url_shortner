@@ -4,7 +4,7 @@ import { CreateUrlDto } from './dto/create-url.dto';
 
 
 
-@Controller('user')
+@Controller('shorten-url')
 export class ShortenUrlController {
   constructor(private readonly shortenUrlService: ShortenUrlService) { }
 
